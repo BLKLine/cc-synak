@@ -1,6 +1,4 @@
 local args = {...}
-
-local pasteID = "MjVMrLBr"
 local githubURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/SynakInstaller.lua"
 
 function installScript(script)
@@ -8,9 +6,8 @@ function installScript(script)
 end
 
 function update()
-    term.clear()
+    clear()
     print("Downloading lastest version")
-    -- request = http.get("https://pastebin.com/raw/"..pasteID)
     request = http.get(githubURL)
     data = request.readAll()
 
@@ -26,7 +23,7 @@ function update()
 end
 
 if (#args == 0) then
-    term.clear()
+    clear()
     print("Welcome to Synak.")
     print("Commands:")
     print("help")
@@ -35,12 +32,12 @@ if (#args == 0) then
     print("purge")
 else
     if (args[1] == "help") then
-        term.clear()
+        clear()
         print("Why do you need help")
     elseif (args[1] == "update") then
         update()
     elseif (args[1] == "install") then
-        term.clear()
+        clear()
         if (#args == 1) then
             print("Please choose one of the following Modules")
             print("1. Server")
@@ -58,30 +55,7 @@ else
     end
 end
 
-
--- function download(name, url)
---   print("Updating " .. name)
- 
---   request = http.get(url)
---   data = request.readAll()
- 
---   if fs.exists(name) then
---     fs.delete(name)
---     file = fs.open(name, "w")
---     file.write(data)
---     file.close()
---   else
---     file = fs.open(name, "w")
---     file.write(data)
---     file.close()
---   end
- 
---   print("Successfully downloaded " .. name .. "\n")
--- end
-
--- for key, value in ipairs(urls) do
---     download(unpack(value))
--- end
-
--- term.clear()
--- term.setCursorPos()
+function clear()
+    term.clear()
+    term.setCursorPos(1,1)
+end
