@@ -1,7 +1,7 @@
 local args = {...}
 
 local pasteID = "MjVMrLBr"
-local githubURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/master/SynakInstaller.lua"
+local githubURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/SynakInstaller.lua"
 
 function installScript(script)
     print("Installing "..script)
