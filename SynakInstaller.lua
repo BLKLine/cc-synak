@@ -62,7 +62,7 @@ function install()
             term.write("\nEnter Password:")
             password = read()
             if (password == p) then
-                installScript(target)
+                downloadScript(target)
             else
                 print("Invalid password")
             end
@@ -70,7 +70,7 @@ function install()
             print("Module not found")
         end
     else
-        installScript(args[2])
+        downloadScript(args[2])
     end
 end
 
