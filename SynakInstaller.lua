@@ -3,15 +3,15 @@ local githubURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/"
 local p = "swickson"
 
 local modules = {
-    update = {
-        url = githubURL.."SynakInstaller.lua",
-        path = "/synak",
-        execute = true
+    "update" = {
+        "url" = githubURL.."SynakInstaller.lua",
+        "path" = "/synak",
+        "execute" = true
     },
-    server = {
-        url = githubURL.."server/update.lua",
-        path = "/update.lua",
-        execute = false
+    "server" = {
+        "url" = githubURL.."server/update.lua",
+        "path" = "/update.lua",
+        "execute" = false
     }
 }
 
