@@ -1,32 +1,26 @@
--- Update script
--- Automatically downloads ComputerCraft programs to a computer
-
-local masterURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/master/"
+local githubURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/"
 
 urls = {
-    {"test",  masterURL.."server/test.lua"},
-    {"server", masterURL.."server/server.lua"},
-    {"update", masterURL.."server/update.lua"}
+    {"test",  githubURL.."server/test.lua"},
+    {"server", githubURL.."server/server.lua"},
+    {"update", githubURL.."server/update.lua"}
 }
 
 function download(name, url)
-  print("Updating " .. name)
+    print("Updating " .. name)
  
-  request = http.get(url)
-  data = request.readAll()
- 
-  if fs.exists(name) then
-    fs.delete(name)
+    request = http.get(url)
+    data = request.readAll()
+    
+    if fs.exists(name) then
+        fs.delete(name)
+    end
+
     file = fs.open(name, "w")
     file.write(data)
     file.close()
-  else
-    file = fs.open(name, "w")
-    file.write(data)
-    file.close()
-  end
- 
-  print("Successfully downloaded " .. name .. "\n")
+
+    print("Successfully downloaded " .. name .. "\n")
 end
 
 for key, value in ipairs(urls) do
