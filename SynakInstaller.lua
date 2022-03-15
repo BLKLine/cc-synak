@@ -8,7 +8,7 @@ function installScript(script)
 end
 
 function update()
-    print("\n\n")
+    term.clear()
     print("Downloading lastest version")
     -- request = http.get("https://pastebin.com/raw/"..pasteID)
     request = http.get(githubURL)
@@ -23,10 +23,10 @@ function update()
     file.close()
 
     print("Successfully updated to latest version")
-    shell.run("synak", "help")
 end
 
 if (#args == 0) then
+    term.clear()
     print("Welcome to Synak.")
     print("Commands:")
     print("help")
@@ -35,10 +35,12 @@ if (#args == 0) then
     print("purge")
 else
     if (args[1] == "help") then
+        term.clear()
         print("Why do you need help")
     elseif (args[1] == "update") then
         update()
     elseif (args[1] == "install") then
+        term.clear()
         if (#args == 1) then
             print("Please choose one of the following Modules")
             print("1. Server")
