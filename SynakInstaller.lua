@@ -15,6 +15,11 @@ local modules = {
     }
 }
 
+function clear()
+    term.clear()
+    term.setCursorPos(1,1)
+end
+
 function downloadScript(script)
     clear()
     print("Installing "..script)
@@ -79,9 +84,4 @@ else
     elseif (args[1] == "install") then
         install()
     end
-end
-
-function clear()
-    term.clear()
-    term.setCursorPos(1,1)
 end
