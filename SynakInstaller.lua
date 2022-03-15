@@ -1,28 +1,41 @@
 local args = {...}
-local githubURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/SynakInstaller.lua"
+local githubURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/"
+local p = "swickson"
 
-function installScript(script)
-    print("Installing "..script)
-end
+local modules = {
+    update = {
+        url = githubURL.."SynakInstaller.lua",
+        path = "/synak",
+        execute = true
+    },
+    server = {
+        url = githubURL.."server/update.lua",
+        path = "/update.lua",
+        execute = false
+    }
+}
 
-function update()
+function downloadScript(script)
     clear()
-    print("Downloading lastest version")
-    request = http.get(githubURL)
+    print("Installing "..script)
+    request = http.get(modules[script].url)
     data = request.readAll()
 
-    if (fs.exists("/synak")) then
-        fs.delete("/synak")
+    if (fs.exists(modules[script].path)) then
+        fs.delete(modules[script].path)
     end
-
-    file = fs.open("/synak", "w")
+    
+    file = fs.open(modules[script].path, "w")
     file.write(data)
     file.close()
-
-    print("Successfully updated to latest version")
+    
+    print("Successfully downloaded "..script)
+    if (modules[script].execute) then
+        shell.run(modules[script].path)
+    end
 end
 
-if (#args == 0) then
+function help()
     clear()
     print("Welcome to Synak.")
     print("Commands:")
@@ -30,28 +43,41 @@ if (#args == 0) then
     print("install")
     print("update")
     print("purge")
-else
-    if (args[1] == "help") then
-        clear()
-        print("Why do you need help")
-    elseif (args[1] == "update") then
-        update()
-    elseif (args[1] == "install") then
-        clear()
-        if (#args == 1) then
-            print("Please choose one of the following Modules")
-            print("1. Server")
-            term.write("> ")
-            target = read():lower()
+end
 
-            if (target == "1" or target == "server") then
+function install()
+    clear()
+    if (#args == 1) then
+        print("Please choose one of the following Modules")
+        print("1. Server")
+        term.write("> ")
+        target = read():lower()
+    
+        if (target == "1" or target == "server") then
+            term.write("\nEnter Password:")
+            password = read()
+            if (password == p) then
                 installScript(target)
             else
-                print("Module not found")
+                print("Invalid password")
             end
         else
-            installScript(args[2])
+            print("Module not found")
         end
+    else
+        installScript(args[2])
+    end
+end
+
+if (#args == 0) then
+    help()
+else
+    if (args[1] == "help") then
+        help()
+    elseif (args[1] == "update") then
+        downloadScript("update")
+    elseif (args[1] == "install") then
+        install()
     end
 end
 
