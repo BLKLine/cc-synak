@@ -1,17 +1,28 @@
 local args = {...}
-local githubURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/"
+local devURL = "http://server.noxius.xyz:5500/"
+local mainURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/"
 local p = "swickson"
 
 local modules = {
-    "update" = {
-        "url" = githubURL.."SynakInstaller.lua",
-        "path" = "/synak",
-        "execute" = true
+    update = {
+        url = "SynakInstaller.lua",
+        path = "/synak",
+        execute = false
     },
-    "server" = {
-        "url" = githubURL.."server/update.lua",
-        "path" = "/update.lua",
-        "execute" = false
+    phone = {
+        url = "phone/update.lua",
+        path = "/update.lua",
+        execute = true
+    },
+    server = {
+        url = "server/update.lua",
+        path = "/update.lua",
+        execute = true
+    },
+    quarrier = {
+        url = "standalone/quarrier.lua",
+        path = "/quary.lua",
+        execute = false
     }
 }
 
@@ -22,10 +33,19 @@ end
 
 function downloadScript(script)
     clear()
-    print("Installing "..script)
-    request = http.get(modules[script].url)
-    data = request.readAll()
+    print("Begining Install of "..script)
+    print("Downloading from Development Server")
+    local request = http.get(devURL .. modules[script].url)
 
+    if (not request) then
+        print("Development Server offline.")
+        print("Downloading from Live Server")
+        request = http.get(mainURL .. modules[script].url)
+    end
+
+    print("Installing...")
+    data = request.readAll()
+    
     if (fs.exists(modules[script].path)) then
         fs.delete(modules[script].path)
     end
@@ -34,7 +54,7 @@ function downloadScript(script)
     file.write(data)
     file.close()
     
-    print("Successfully downloaded "..script)
+    print("Successfully Installed "..script)
     if (modules[script].execute) then
         shell.run(modules[script].path)
     end
