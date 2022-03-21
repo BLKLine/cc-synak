@@ -1,12 +1,11 @@
 local devURL = "http://server.noxius.xyz:5500/"
 local mainURL = "https://raw.githubusercontent.com/BLKLine/cc-synak/main/"
-local path = "server/"
+local path = "phone/"
 local useDevServer = true
+local updateDelay = 1
 
 local files = {
     "startup.lua",
-    "test.lua",
-    "server.lua",
     "update.lua",
 }
 
@@ -44,5 +43,5 @@ for _, file in pairs(files) do
 end
 
 print("Rebooting...")
-os.sleep(5)
+os.sleep(updateDelay)
 os.reboot()

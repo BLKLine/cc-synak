@@ -1,0 +1,4 @@
+http://www.computercraft.info/forums2/index.php?/topic/1708-lyqydnet-rednet-api/
+http://www.computercraft.info/forums2/index.php?/topic/22268-packman-a-package-management-tool/
+https://github.com/lyqyd/cc-packman/blob/master/packman
+https://www.computercraft.info/forums2/index.php?/topic/17614-ultimate-door-lock-pda-opened-doors/

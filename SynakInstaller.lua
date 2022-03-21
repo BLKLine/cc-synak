@@ -21,7 +21,7 @@ local modules = {
     },
     quarrier = {
         url = "standalone/quarrier.lua",
-        path = "/quary.lua",
+        path = "/quarrier.lua",
         execute = false
     }
 }
@@ -103,5 +103,24 @@ else
         downloadScript("update")
     elseif (args[1] == "install") then
         install()
+    elseif (args[1] == "i") then
+        local dist = args[2]
+        local filepath = args[3]
+        clear()
+        print("Begining Install of "..script)
+        local request = http.get(devURL .. dist)
+    
+        print("Installing...")
+        data = request.readAll()
+        
+        if (filepath) then
+            fs.delete(filepath)
+        end
+        
+        file = fs.open(filepath, "w")
+        file.write(data)
+        file.close()
+        
+        print("Successfully Installed "..script)
     end
 end
